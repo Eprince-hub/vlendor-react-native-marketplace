@@ -25,7 +25,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'FirstNativeApp' do
+target 'VolavidMarketplace' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -45,7 +45,7 @@ target 'FirstNativeApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'FirstNativeAppTests' do
+  target 'VolavidMarketplaceTests' do
     inherit! :complete
     # Pods for testing
   end

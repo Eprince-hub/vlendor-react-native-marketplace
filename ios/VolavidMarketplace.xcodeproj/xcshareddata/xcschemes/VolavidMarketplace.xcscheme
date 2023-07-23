@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "FirstNativeApp.app"
-               BlueprintName = "FirstNativeApp"
-               ReferencedContainer = "container:FirstNativeApp.xcodeproj">
+               BuildableName = "VolavidMarketplace.app"
+               BlueprintName = "VolavidMarketplace"
+               ReferencedContainer = "container:VolavidMarketplace.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FirstNativeAppTests.xctest"
-               BlueprintName = "FirstNativeAppTests"
-               ReferencedContainer = "container:FirstNativeApp.xcodeproj">
+               BuildableName = "VolavidMarketplaceTests.xctest"
+               BlueprintName = "VolavidMarketplaceTests"
+               ReferencedContainer = "container:VolavidMarketplace.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FirstNativeApp.app"
-            BlueprintName = "FirstNativeApp"
-            ReferencedContainer = "container:FirstNativeApp.xcodeproj">
+            BuildableName = "VolavidMarketplace.app"
+            BlueprintName = "VolavidMarketplace"
+            ReferencedContainer = "container:VolavidMarketplace.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FirstNativeApp.app"
-            BlueprintName = "FirstNativeApp"
-            ReferencedContainer = "container:FirstNativeApp.xcodeproj">
+            BuildableName = "VolavidMarketplace.app"
+            BlueprintName = "VolavidMarketplace"
+            ReferencedContainer = "container:VolavidMarketplace.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
