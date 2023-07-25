@@ -1,12 +1,15 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
+import {PaperProvider} from 'react-native-paper';
 import AppNavigation from './navigations/appNavigation';
 
 function App() {
   return (
-    <NavigationContainer>
-      <AppNavigation />
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <AppNavigation />
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 export default App;
