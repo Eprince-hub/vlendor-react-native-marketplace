@@ -1,4 +1,4 @@
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Lottie from 'lottie-react-native';
 import React from 'react';
 import {
@@ -13,11 +13,11 @@ import {setItem} from '../util/asyncStorage';
 
 const {width} = Dimensions.get('window');
 
-export default function OnboardingScreen({navigation}: any) {
-  // const navigation = useNavigation();
+export default function OnboardingScreen() {
+  const navigation = useNavigation<any>();
 
   const handleDone = () => {
-    navigation.navigate('DefaultHomePage');
+    navigation.navigate('MainScreens');
     setItem('onboarded', '1');
   };
 
