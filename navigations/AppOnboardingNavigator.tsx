@@ -1,14 +1,15 @@
-// import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import HomePageScreen from '../screens/HomePageScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import {getItem} from '../util/asyncStorage';
+import MainScreensNavigator from './MainScreensNavigator';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppNavigation() {
-  const [showOnboarding, setShowOnboarding] = useState<boolean | null>(null);
+export default function AppOnboardingNavigation() {
+  const [showOnboardingScreen, setShowOnboardingScreen] = useState<
+    boolean | null
+  >(null);
   useEffect(() => {
     checkIfAlreadyOnboarded();
   }, []);
@@ -17,18 +18,20 @@ export default function AppNavigation() {
     const onboarded = await getItem('onboarded');
     if (onboarded === '1') {
       // hide onboarding
-      setShowOnboarding(false);
+      setShowOnboardingScreen(false);
     } else {
       // show onboarding
-      setShowOnboarding(true);
+      setShowOnboardingScreen(true);
     }
   };
 
-  if (showOnboarding === null) {
+  if (showOnboardingScreen === null) {
     return null;
   }
 
-  return showOnboarding ? (
+  console.log('showOnboardingScreen', showOnboardingScreen);
+
+  return showOnboardingScreen ? (
     <Stack.Navigator initialRouteName="Onboarding">
       <Stack.Screen
         name="Onboarding"
@@ -36,22 +39,22 @@ export default function AppNavigation() {
         component={OnboardingScreen}
       />
       <Stack.Screen
-        name="DefaultHomePage"
+        name="MainScreens"
         options={{headerShown: false}}
-        component={HomePageScreen}
+        component={MainScreensNavigator}
       />
     </Stack.Navigator>
   ) : (
-    <Stack.Navigator initialRouteName="DefaultHomePage">
+    <Stack.Navigator initialRouteName="MainScreens">
       <Stack.Screen
         name="Onboarding"
         options={{headerShown: false}}
         component={OnboardingScreen}
       />
       <Stack.Screen
-        name="DefaultHomePage"
+        name="MainScreens"
         options={{headerShown: false}}
-        component={HomePageScreen}
+        component={MainScreensNavigator}
       />
     </Stack.Navigator>
   );
