@@ -1,31 +1,11 @@
-import React, {useContext} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {CartContext} from '../components/CartContext';
-import Totals from '../components/Totals';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 export function Cart() {
-  const {items}: any = useContext(CartContext);
-
-  function renderItem({item}: any) {
-    return (
-      <View style={styles.cartLine}>
-        <Text style={styles.lineLeft}>
-          {item.product.name} x {item.qty}
-        </Text>
-        <Text style={styles.lineRight}>$ {item.totalPrice}</Text>
-      </View>
-    );
-  }
-
   return (
-    <FlatList
-      style={styles.itemsList}
-      contentContainerStyle={styles.itemsListContainer}
-      data={items}
-      renderItem={renderItem}
-      keyExtractor={item => item.product.id.toString()}
-      ListFooterComponent={Totals}
-    />
+    <View style={styles.cartLine}>
+      <Text style={styles.lineLeft}>Old Cart Component here</Text>
+    </View>
   );
 }
 const styles = StyleSheet.create({

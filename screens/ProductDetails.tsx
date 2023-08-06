@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Button,
   Image,
   SafeAreaView,
   ScrollView,
@@ -8,22 +7,15 @@ import {
   Text,
   View,
 } from 'react-native';
-import {CartContext} from '../components/CartContext';
 import {getProduct} from '../util/data';
 
 export function ProductDetails({route}: any) {
   const {productId} = route.params;
   const [product, setProduct] = useState<any>({});
 
-  const {addItemToCart}: any = useContext(CartContext);
-
   useEffect(() => {
     setProduct(getProduct(productId));
   }, [productId]);
-
-  function onAddToCart() {
-    addItemToCart(product.id);
-  }
 
   return (
     <SafeAreaView>
@@ -36,7 +28,6 @@ export function ProductDetails({route}: any) {
           <Text style={styles.name}>{product.name}</Text>
           <Text style={styles.price}>$ {product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
-          <Button onPress={onAddToCart} title="Add to cart" />
         </View>
       </ScrollView>
     </SafeAreaView>

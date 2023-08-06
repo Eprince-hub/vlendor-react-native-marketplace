@@ -29,8 +29,6 @@ export default function AppOnboardingNavigation() {
     return null;
   }
 
-  console.log('showOnboardingScreen', showOnboardingScreen);
-
   return showOnboardingScreen ? (
     <Stack.Navigator initialRouteName="Onboarding">
       <Stack.Screen

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
 
+// Currently not in use anywhere Or Not being used anywhere
 export default function ProfileScreen({navigation, route}: any) {
   return (
     <View>
