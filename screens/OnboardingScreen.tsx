@@ -35,7 +35,7 @@ export default function OnboardingScreen() {
         onSkip={handleDone}
         // bottomBarHighlight={false}
         DoneButtonComponent={doneButton}
-        containerStyles={{paddingHorizontal: 15}}
+        containerStyles={styles.containerStyle}
         pages={[
           {
             backgroundColor: '#3486f0',
@@ -95,12 +95,15 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: width * 0.9,
-    height: width,
+    height: width / 2,
   },
   doneButton: {
     padding: 20,
     // backgroundColor: 'white',
     // borderTopLeftRadius: '100%',
     // borderBottomLeftRadius: '100%'
+  },
+  containerStyle: {
+    paddingHorizontal: 15,
   },
 });
