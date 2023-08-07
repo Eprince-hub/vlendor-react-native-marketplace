@@ -1,16 +1,16 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 
-// Currently not in use anywhere Or Not being used anywhere
-export default function ProfileScreen({navigation, route}: any) {
+export default function ProfileScreen({route}: any) {
+  // Temporary variable to hold the name of the user
+  const profileParams = route.params?.name || 'Guest';
   return (
     <View>
-      <Text>This screen will be needed for the users profile</Text>
-      <Text>This is {route.params.name}'s profile</Text>
-      <Button
-        title="Go to Products Page"
-        onPress={() => navigation.navigate('Products')}
-      />
+      <Text>
+        This screen will be needed for the users profile and the user related
+        settings screen will be displayed here
+      </Text>
+      <Text>This is {profileParams}'s profile</Text>
     </View>
   );
 }

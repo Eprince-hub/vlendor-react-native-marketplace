@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FixIcon from 'react-native-vector-icons/MaterialIcons';
 import {Cart} from '../screens/Cart';
 import {ProductsList} from '../screens/ProductsList';
+import ProfileScreen from '../screens/ProfileScreen';
 import ResetScreen from '../screens/ResetScreen';
-import SettingScreen from '../screens/SettingScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -38,10 +38,10 @@ function BottomNavigationTrigger() {
       />
       <Tab.Screen
         name="Profile"
-        component={SettingScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'Me',
-          tabBarIcon: renderSettingIcon,
+          tabBarIcon: renderProfileIcon,
         }}
       />
     </Tab.Navigator>
@@ -61,6 +61,6 @@ const renderResetIcon = () => {
   return <Icon name="lock-reset" size={26} />;
 };
 
-const renderSettingIcon = () => {
+const renderProfileIcon = () => {
   return <Icon name="account" size={26} />;
 };
