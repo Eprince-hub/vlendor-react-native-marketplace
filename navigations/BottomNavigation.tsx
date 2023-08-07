@@ -11,7 +11,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 function BottomNavigationTrigger() {
   return (
-    <Tab.Navigator initialRouteName="HomeScreen_tab">
+    <Tab.Navigator
+      activeColor="blue"
+      inactiveColor="black"
+      initialRouteName="HomeScreen_tab">
       <Tab.Screen
         name="HomeScreen_tab"
         component={ProductsList}
@@ -37,7 +40,7 @@ function BottomNavigationTrigger() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Me',
@@ -50,17 +53,22 @@ function BottomNavigationTrigger() {
 export default BottomNavigationTrigger;
 
 // TODO: Move this to a separate component common file
-const renderExploreIcon = ({color}: any) => {
+// And make the component reusable
+type IconColorProps = {
+  color: string;
+};
+
+const renderExploreIcon = ({color}: IconColorProps) => {
   return <FixIcon name="explore" size={26} color={color} />;
 };
 
-const renderHomeIcon = () => {
-  return <Icon name="home" size={26} />;
+const renderHomeIcon = ({color}: IconColorProps) => {
+  return <Icon name="home" size={26} color={color} />;
 };
-const renderResetIcon = () => {
-  return <Icon name="lock-reset" size={26} />;
+const renderResetIcon = ({color}: IconColorProps) => {
+  return <Icon name="bell" size={26} color={color} />;
 };
 
-const renderProfileIcon = () => {
-  return <Icon name="account" size={26} />;
+const renderProfileIcon = ({color}: IconColorProps) => {
+  return <Icon name="account" size={26} color={color} />;
 };
