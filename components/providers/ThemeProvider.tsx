@@ -1,11 +1,13 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {Appearance} from 'react-native';
 import {
-  DefaultTheme,
-  MD2DarkTheme,
+  adaptNavigationTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {getItem, setItem} from '../../util/asyncStorage';
+import {darkTheme, lightTheme} from '../../util/styles/colorThemes';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -82,7 +84,14 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
     setSystemTheme().then(() => {});
   }, [allowSystemPreference]);
 
-  const theme = themeMode === 'dark' ? MD2DarkTheme : DefaultTheme;
+  const theme = themeMode === 'dark' ? darkTheme : lightTheme;
+  const {LightTheme, DarkTheme} = adaptNavigationTheme({
+    reactNavigationLight: lightTheme as any,
+    reactNavigationDark: darkTheme as any,
+  });
+
+  const navigationTheme = themeMode === 'dark' ? DarkTheme : LightTheme;
+
   return (
     <ThemeContext.Provider
       value={{
@@ -93,7 +102,13 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
         setAllowSystemPreference,
         setItem,
       }}>
-      <PaperProvider theme={theme}>{children}</PaperProvider>
+      <PaperProvider theme={theme}>
+        <SafeAreaProvider>
+          <NavigationContainer theme={navigationTheme}>
+            {children}
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PaperProvider>
     </ThemeContext.Provider>
   );
 };
