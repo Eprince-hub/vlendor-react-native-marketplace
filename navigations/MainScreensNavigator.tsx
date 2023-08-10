@@ -7,30 +7,34 @@
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
+import {useTheme} from '../components/providers/ThemeProvider';
 import {ProductDetails} from '../screens/ProductDetails';
 import BottomNavigationTrigger from './BottomNavigation';
 
 const Stack = createNativeStackNavigator();
 export default function MainScreensNavigator() {
+  const {theme, themeMode} = useTheme();
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Products"
-        component={BottomNavigationTrigger}
-        options={{
-          title: 'Services',
-          headerTitleStyle: styles.headerTitle,
-        }}
+    <>
+      <StatusBar
+        backgroundColor={theme.colors.background}
+        barStyle={themeMode === 'light' ? 'dark-content' : 'light-content'}
       />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetails}
-        options={{
+      <Stack.Navigator
+        screenOptions={{
           headerTitleStyle: styles.headerTitle,
-        }}
-      />
-    </Stack.Navigator>
+        }}>
+        <Stack.Screen
+          name="Products"
+          component={BottomNavigationTrigger}
+          options={{
+            title: 'Services',
+          }}
+        />
+        <Stack.Screen name="ProductDetails" component={ProductDetails} />
+      </Stack.Navigator>
+    </>
   );
 }
 const styles = StyleSheet.create({
