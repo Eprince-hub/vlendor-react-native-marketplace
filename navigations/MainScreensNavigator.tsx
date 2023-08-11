@@ -10,6 +10,7 @@ import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {useTheme} from '../components/providers/ThemeProvider';
 import {ProductDetails} from '../screens/ProductDetails';
+import SignUpScreen from '../screens/SignupScreen';
 import BottomNavigationTrigger from './BottomNavigation';
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,8 @@ export default function MainScreensNavigator() {
           }}
         />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
+
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
     </>
   );
