@@ -9,11 +9,11 @@ const SignUpScreen: React.FC = () => {
   const [basicInfo, setBasicInfo] = useState<{
     firstName: string;
     lastName: string;
-    dateOfBirth: string;
+    dateOfBirth: Date;
   }>({
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
+    dateOfBirth: '' as unknown as Date,
   });
 
   const [profileInfo, setProfileInfo] = useState<{
@@ -52,16 +52,17 @@ const SignUpScreen: React.FC = () => {
             onChangeText={text => setBasicInfo({...basicInfo, lastName: text})}
             icon="account"
           />
-          <TextInputWithIcon
-            label="Date of Birth"
-            value={basicInfo.dateOfBirth}
-            onChangeText={text =>
-              setBasicInfo({...basicInfo, dateOfBirth: text})
-            }
+          <SingleDatePickerInput
             icon="calendar"
+            title="Date of Birth"
+            date={basicInfo.dateOfBirth}
+            setDate={text =>
+              setBasicInfo({
+                ...basicInfo,
+                dateOfBirth: text as Date,
+              })
+            }
           />
-
-          <SingleDatePickerInput />
         </View>
       )}
 
