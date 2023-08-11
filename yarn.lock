@@ -2731,7 +2731,7 @@ color-string@^1.6.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.1.2:
+color@^3.1.2, color@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
   integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
@@ -5637,6 +5637,13 @@ react-native-onboarding-swiper@^1.2.0:
   integrity sha512-UcQ9FTSPG/t12B7dddr62xtA7qHb+MEc/kQnkkUbeWas0+0fQPjTjiFcVZm5LI3CP5X0HVp7U1Rzfrpf3O9lJA==
   dependencies:
     tinycolor2 "^1.4.1"
+
+react-native-paper-dates@^0.18.13:
+  version "0.18.13"
+  resolved "https://registry.yarnpkg.com/react-native-paper-dates/-/react-native-paper-dates-0.18.13.tgz#bbd5c37bb4cc42d926c8ac56b61656c648d56779"
+  integrity sha512-neI+McARRDq4F0SGntbWFLAkBzFc51fOTB8nnPEIRRcYS0nIzBdhFaudwvC8pOIT1Xvb6VMDX1fAIZvV13kH/Q==
+  dependencies:
+    color "^3.2.1"
 
 react-native-paper@^5.9.1:
   version "5.9.1"
