@@ -33,8 +33,6 @@ export default function SingleDatePickerInput({
   );
 
   const formattedDate = date ? date.toISOString().split('T')[0] : '';
-
-  console.log('date', date);
   return (
     <SafeAreaProvider>
       <View>
