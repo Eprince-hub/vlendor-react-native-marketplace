@@ -2,6 +2,9 @@ import React from 'react';
 import {ThemeContextProvider, useThemeContext} from './ThemeContextProvider';
 import {UserContextProvider, useUserContext} from './UserContextProvider';
 
+type CombinedContext = ReturnType<typeof useThemeContext> &
+  ReturnType<typeof useUserContext>;
+
 const AppContextProvider = ({children}: {children: React.ReactNode}) => {
   return (
     <ThemeContextProvider>
@@ -14,10 +17,11 @@ export const useAppContext = () => {
   const themeContext = useThemeContext();
   const userContext = useUserContext();
 
-  return {
-    ...themeContext,
-    ...userContext,
-  };
+  if (themeContext) {
+    return themeContext as CombinedContext;
+  }
+
+  return userContext as CombinedContext;
 };
 
 export default AppContextProvider;
