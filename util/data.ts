@@ -62,7 +62,6 @@ export const services = [
 ];
 
 export function getProducts() {
-  console.log('services', services);
   return services;
 }
 
