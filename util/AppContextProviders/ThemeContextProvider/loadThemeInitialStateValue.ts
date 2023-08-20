@@ -1,20 +1,22 @@
 import {Appearance} from 'react-native';
 import {getItem} from '../../asyncStorage';
 import {ThemeMode} from '../type';
-import {setThemeMode} from './themeActions';
+import {setSystemPreference, setThemeMode} from './themeActions';
 
 export const loadThemeInitialStateValue = async (
   dispatch: React.Dispatch<any>,
 ) => {
   try {
     const storedThemeMode = await getItem('themeMode');
+    const storedSystemPreference = await getItem('systemPreference');
 
     // TODO: Check to make the theme mode more robust
-    if (storedThemeMode) {
+    if (storedThemeMode && storedSystemPreference !== 'system') {
       dispatch(setThemeMode(storedThemeMode as ThemeMode));
-    } else {
+    } else if (!storedThemeMode || storedSystemPreference === 'system') {
       const systemTheme = Appearance.getColorScheme();
       dispatch(setThemeMode(systemTheme || 'light'));
+      dispatch(setSystemPreference('system'));
     }
   } catch (error) {
     // TODO: Add error handling
