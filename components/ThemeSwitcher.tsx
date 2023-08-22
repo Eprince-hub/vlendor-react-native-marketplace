@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Appearance, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {useAppContext} from '../util/AppContextProviders';
@@ -7,37 +7,27 @@ import {
   setThemeMode,
 } from '../util/AppContextProviders/ThemeContextProvider/themeActions';
 import {ThemeMode, UseSystemPreference} from '../util/AppContextProviders/type';
-import {getItem, removeItem, setItem} from '../util/asyncStorage';
+import {removeItem, setItem} from '../util/asyncStorage';
 import CustomRadioButton from './CustomRadioButton';
 
 const ThemeSwitcher = () => {
-  const {state, dispatch} = useAppContext();
-  const {themeMode, useSystemPreference} = state;
+  const {themeState, themeDispatch} = useAppContext();
+  const {themeMode, useSystemPreference} = themeState;
 
   const handleModeChange = async (newMode: ThemeMode | UseSystemPreference) => {
     if (newMode === 'system') {
       const systemTheme = Appearance.getColorScheme();
       systemTheme && (await setItem('themeMode', systemTheme));
       await setItem('systemPreference', newMode);
-      dispatch(setSystemPreference(newMode));
-      dispatch(setThemeMode(systemTheme!));
+      themeDispatch(setSystemPreference(newMode));
+      themeDispatch(setThemeMode(systemTheme!));
       return;
     }
     newMode && (await setItem('themeMode', newMode));
     await removeItem('systemPreference');
-    dispatch(setThemeMode(newMode!));
-    dispatch(setSystemPreference(null));
+    themeDispatch(setThemeMode(newMode!));
+    themeDispatch(setSystemPreference(null));
   };
-
-  //TODO: This useEffect and its implementation might be unnecessary
-  useEffect(() => {
-    // Get saved system preference from AsyncStorage
-    getItem('systemPreference').then(savedPreference => {
-      if (savedPreference === 'system') {
-        dispatch(setSystemPreference('system'));
-      }
-    });
-  }, [dispatch]);
 
   function radioButtonStatusChecked(mode: string) {
     if (themeMode === mode && useSystemPreference === null) {
