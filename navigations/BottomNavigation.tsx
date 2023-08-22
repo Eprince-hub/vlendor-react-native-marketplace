@@ -7,12 +7,14 @@ import LoginScreen from '../screens/LoginScreen';
 import {ProductsList} from '../screens/ProductsList';
 import ProfileScreen from '../screens/ProfileScreen';
 import ResetScreen from '../screens/ResetScreen';
+import {useAppContext} from '../util/AppContextProviders';
 import isUserLoggedIn from '../util/auth/user';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function BottomNavigationTrigger() {
-  const userLoggedIn = isUserLoggedIn('');
+  const {userState} = useAppContext();
+  const userLoggedIn = isUserLoggedIn(userState.userProfile?.name);
   return (
     <Tab.Navigator activeColor="blue" initialRouteName="HomeScreen_tab">
       <Tab.Screen
