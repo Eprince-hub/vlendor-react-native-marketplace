@@ -5,7 +5,8 @@ import {userInitialState} from './userInitialState';
 import {userReducer} from './userReducer';
 
 const UserContext = createContext<
-  {state: UserInitialState; dispatch: React.Dispatch<UserAction>} | undefined
+  | {userState: UserInitialState; userDispatch: React.Dispatch<UserAction>}
+  | undefined
 >(undefined);
 
 export const UserContextProvider = ({
@@ -20,7 +21,7 @@ export const UserContextProvider = ({
   }, []);
 
   return (
-    <UserContext.Provider value={{state, dispatch}}>
+    <UserContext.Provider value={{userState: state, userDispatch: dispatch}}>
       {children}
     </UserContext.Provider>
   );
@@ -29,7 +30,9 @@ export const UserContextProvider = ({
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('User Context Provider must be used within an AppProvider');
+    throw new Error(
+      'User Context Provider must be used within the AppContextProvider',
+    );
   }
   return context;
 };
