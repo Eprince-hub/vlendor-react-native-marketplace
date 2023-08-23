@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Divider, Text} from 'react-native-paper';
 import {Product} from './Products';
 
 export function SingleProduct({name, price, description, onPress}: Product) {
@@ -14,12 +15,12 @@ export function SingleProduct({name, price, description, onPress}: Product) {
         <Text style={styles.price}>$ {price}</Text>
         <Text>{description}</Text>
       </View>
+      <Divider />
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
     borderRadius: 16,
     shadowOpacity: 0.2,
     shadowRadius: 4,

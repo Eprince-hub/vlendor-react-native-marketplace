@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
 import {getProduct} from '../util/data';
 
 export function ProductDetails({route}: any) {
@@ -35,7 +29,6 @@ export function ProductDetails({route}: any) {
 }
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
     borderRadius: 16,
     shadowOpacity: 0.2,
     shadowRadius: 4,
