@@ -21,6 +21,7 @@ export type ThemeInitialState = {
 // initial state type
 export type UserProfile = {
   name: string;
+  userName: string;
   // other user profile data
 };
 

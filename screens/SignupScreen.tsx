@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
+import {Button, Snackbar, Text} from 'react-native-paper';
 import Dropdown from '../components/Dropdown';
 import PhoneNumberInput from '../components/PhoneNumberInput';
 import SingleDatePickerInput from '../components/SingleDatePickerInput';
 import TextInputWithIcon from '../components/TextInputWithIcon';
+import {useAppContext} from '../util/AppContextProviders';
+import {signupHandler} from '../util/auth/apiHandlers/signup';
+import isUserLoggedIn from '../util/auth/user';
 import {countriesStatesAndLocalGovt} from '../util/countries';
 
 const SignUpScreen: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [basicInfo, setBasicInfo] = useState<{
@@ -22,7 +27,6 @@ const SignUpScreen: React.FC = () => {
 
   const [location, setLocation] = useState<{
     selectedCountry: string;
-    profession: string;
     selectedState: string;
     selectedLocalGovt: string;
     address: string;
@@ -30,7 +34,6 @@ const SignUpScreen: React.FC = () => {
     phoneNumber: string;
   }>({
     selectedCountry: '',
-    profession: '',
     selectedState: '',
     selectedLocalGovt: '',
     address: '',
@@ -50,12 +53,33 @@ const SignUpScreen: React.FC = () => {
     confirmPassword: '',
   });
 
+  const navigation = useNavigation<any>();
+  const {userDispatch, userState} = useAppContext();
+
   const handleNext = () => {
     setCurrentPage(currentPage + 1);
   };
 
   const handlePrevious = () => {
     setCurrentPage(currentPage - 1);
+  };
+
+  // TODO: Implement a better form submission with validation
+  const handleFormSubmission = async () => {
+    try {
+      const response = await signupHandler({basicInfo, location, profileInfo});
+
+      if (response.status === 200) {
+        userDispatch({
+          type: 'SET_USER_PROFILE',
+          payload: response.SignedUser,
+        });
+        // TODO: Fix this function's TypeScript error on Usage
+        // userDispatch(setUserProfile(response.SignedUser));
+      }
+    } catch (error) {
+      setErrorMessage((error as Error).message);
+    }
   };
 
   const selectedCountryData = countriesStatesAndLocalGovt.find(
@@ -71,6 +95,16 @@ const SignUpScreen: React.FC = () => {
   const localGovts = selectedStateData?.localGovt || [];
 
   const totalPages = 3;
+
+  const onDismissSnackBar = () => setErrorMessage('');
+
+  useEffect(() => {
+    const userLoggedIn = isUserLoggedIn(userState.userProfile?.name);
+
+    if (userLoggedIn) {
+      navigation.navigate('ProfileScreen');
+    }
+  }, [navigation, userState.userProfile?.name]);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {currentPage === 1 && (
@@ -203,7 +237,26 @@ const SignUpScreen: React.FC = () => {
           </Button>
         )}
 
-        {currentPage === totalPages && <Button mode="contained">Submit</Button>}
+        {currentPage === totalPages && (
+          <Button mode="contained" onPress={handleFormSubmission}>
+            Register
+          </Button>
+        )}
+      </View>
+      <View>
+        <Snackbar
+          visible={errorMessage ? true : false}
+          onDismiss={onDismissSnackBar}
+          duration={3000}
+          theme={{colors: {accent: 'red'}}}
+          action={{
+            label: 'Ok',
+            onPress: () => {
+              onDismissSnackBar();
+            },
+          }}>
+          {errorMessage}
+        </Snackbar>
       </View>
     </ScrollView>
   );
