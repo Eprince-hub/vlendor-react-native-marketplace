@@ -8,18 +8,19 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
-import {useTheme} from '../components/providers/ThemeProvider';
 import {ProductDetails} from '../screens/ProductDetails';
 import SignUpScreen from '../screens/SignupScreen';
+import {useAppContext} from '../util/AppContextProviders';
 import BottomNavigationTrigger from './BottomNavigation';
 
 const Stack = createNativeStackNavigator();
 export default function MainScreensNavigator() {
-  const {theme, themeMode} = useTheme();
+  const {themeState} = useAppContext();
+  const {themeMode} = themeState;
+
   return (
     <>
       <StatusBar
-        backgroundColor={theme.colors.background}
         barStyle={themeMode === 'light' ? 'dark-content' : 'light-content'}
       />
       <Stack.Navigator
