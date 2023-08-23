@@ -14,14 +14,22 @@ export const UserContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(userReducer, userInitialState);
+  const [userState, userDispatch] = useReducer(userReducer, userInitialState);
 
   useEffect(() => {
-    loadUserInitialStateValue(dispatch);
+    loadUserInitialStateValue(userDispatch);
   }, []);
 
+  const memoizedUserContextValue = React.useMemo(
+    () => ({
+      userState,
+      userDispatch,
+    }),
+    [userState, userDispatch],
+  );
+
   return (
-    <UserContext.Provider value={{userState: state, userDispatch: dispatch}}>
+    <UserContext.Provider value={memoizedUserContextValue}>
       {children}
     </UserContext.Provider>
   );

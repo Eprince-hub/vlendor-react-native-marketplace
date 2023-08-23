@@ -18,24 +18,36 @@ export const ThemeContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(themeReducer, themeInitialState);
+  const [themeState, themeDispatch] = useReducer(
+    themeReducer,
+    themeInitialState,
+  );
 
   const {LightTheme, DarkTheme} = adaptNavigationTheme({
     reactNavigationLight: lightTheme as any,
     reactNavigationDark: darkTheme as any,
   });
 
-  const navigationTheme = state.themeMode === 'dark' ? DarkTheme : LightTheme;
+  const navigationTheme =
+    themeState.themeMode === 'dark' ? DarkTheme : LightTheme;
 
   // Check if this implementation is really needed
-  const appTheme = state.themeMode === 'dark' ? darkTheme : lightTheme;
+  const appTheme = themeState.themeMode === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
-    loadThemeInitialStateValue(dispatch);
+    loadThemeInitialStateValue(themeDispatch);
   }, []);
 
+  const memoizedUserContextValue = React.useMemo(
+    () => ({
+      themeState,
+      themeDispatch,
+    }),
+    [themeState, themeDispatch],
+  );
+
   return (
-    <ThemeContext.Provider value={{themeState: state, themeDispatch: dispatch}}>
+    <ThemeContext.Provider value={memoizedUserContextValue}>
       <PaperProvider theme={appTheme}>
         <SafeAreaProvider>
           <NavigationContainer theme={navigationTheme}>
