@@ -1,8 +1,9 @@
 import {getItem} from '../../asyncStorage';
+import {UserAction} from '../type';
 import {setUserProfile} from './userActions';
 
 export const loadUserInitialStateValue = async (
-  dispatch: React.Dispatch<any>,
+  dispatch: React.Dispatch<UserAction>,
 ) => {
   try {
     const storedUserProfile = await getItem('userProfile');
