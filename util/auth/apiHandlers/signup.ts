@@ -23,8 +23,8 @@ export const signupHandler = async ({...appArguments}) => {
       await setItem(
         'userProfile',
         JSON.stringify({
-          name: basicInfo.name,
-          userName: profileInfo.userName,
+          name: basicInfo.firstName,
+          userName: profileInfo.username,
           email: profileInfo.email,
           password: profileInfo.password,
         }),

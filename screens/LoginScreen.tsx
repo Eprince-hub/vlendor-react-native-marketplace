@@ -1,16 +1,38 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
+import {Button, Snackbar, Text} from 'react-native-paper';
 import TextInputWithIcon from '../components/TextInputWithIcon';
+import {useAppContext} from '../util/AppContextProviders';
+import {loginHandler} from '../util/auth/apiHandlers/login';
 
 const SignInScreen = ({navigation}: any) => {
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+  const {userDispatch} = useAppContext();
 
-  const handleSignIn = () => {
-    // Implement your sign-in logic here
-    console.log('Signing in...');
+  const handleSignIn = async () => {
+    try {
+      // Implement your sign-in logic here
+
+      // console.log('Signing in...: ', await loginHandler());
+      const response = await loginHandler({
+        emailOrPhone,
+        password,
+      });
+
+      if (response.status === 200) {
+        userDispatch({
+          type: 'SET_USER_PROFILE',
+          payload: response.SignedUser,
+        });
+        // TODO: Fix this function's TypeScript error on Usage
+        // userDispatch(setUserProfile(response.SignedUser));
+      }
+    } catch (error) {
+      setErrorMessage((error as Error).message);
+    }
   };
 
   const handleForgotPassword = () => {
@@ -19,10 +41,9 @@ const SignInScreen = ({navigation}: any) => {
   };
 
   const handleSignUp = () => {
-    // Implement your sign-up navigation here
     navigation.navigate('SignUp');
-    console.log('Sign Up');
   };
+  const onDismissSnackBar = () => setErrorMessage('');
 
   return (
     <View style={styles.container}>
@@ -55,6 +76,20 @@ const SignInScreen = ({navigation}: any) => {
       <TouchableOpacity onPress={handleSignUp}>
         <Text style={styles.signUp}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
+      <View>
+        <Snackbar
+          visible={errorMessage ? true : false}
+          onDismiss={onDismissSnackBar}
+          duration={3000}
+          action={{
+            label: 'Ok',
+            onPress: () => {
+              onDismissSnackBar();
+            },
+          }}>
+          {errorMessage}
+        </Snackbar>
+      </View>
     </View>
   );
 };
