@@ -1,9 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import {useAppContext} from '../util/AppContextProviders';
+import {setUserProfile} from '../util/AppContextProviders/UserContextProvider/userActions';
+import {getItem} from '../util/asyncStorage';
 import isUserLoggedIn from '../util/auth/user';
 
 export default function ProfileScreen({route}: any) {
@@ -11,9 +13,14 @@ export default function ProfileScreen({route}: any) {
   // Temporary variable to hold the name of the user
   const profileParams = route.params?.name || 'Guest';
 
-  const {userState, themeState} = useAppContext();
+  const {userState, themeState, userDispatch} = useAppContext();
 
-  console.log('ProfileScreen User Stats: ', userState.userProfile);
+  const handleSignOut = async () => {
+    const userInfoFromStorage = await getItem('userProfile');
+    console.log('User Info from storage Now: ', userInfoFromStorage);
+
+    userDispatch(setUserProfile(null));
+  };
 
   useEffect(() => {
     const userLoggedIn = isUserLoggedIn(userState.userProfile?.name);
@@ -35,6 +42,11 @@ export default function ProfileScreen({route}: any) {
       <Text>This is {profileParams}'s profile</Text>
       <Text>My Current Theme mode is {themeState.themeMode}</Text>
       <ThemeSwitcher />
+
+      <View>
+        <Text>You can Logout by clicking below</Text>
+        <Button onPress={handleSignOut}>Logout</Button>
+      </View>
     </View>
   );
 }
