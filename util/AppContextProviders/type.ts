@@ -23,12 +23,12 @@ export type UserProfile = {
   name: string;
   userName: string;
   // other user profile data
-};
+} | null;
 
 // Actions
 export type UserAction = {type: typeof SET_USER_PROFILE; payload: UserProfile};
 
 // Replaces AppState for the initial app state
 export type UserInitialState = {
-  userProfile: UserProfile | null; // TODO: Check to make the user profile more robust
+  userProfile: UserProfile; // TODO: Check to make the user profile more robust
 };
