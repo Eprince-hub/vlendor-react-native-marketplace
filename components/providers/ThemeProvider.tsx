@@ -5,7 +5,6 @@ import {
   adaptNavigationTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {getItem, setItem} from '../../util/asyncStorage';
 import {darkTheme, lightTheme} from '../../util/styles/colorThemes';
 
@@ -54,7 +53,6 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
     retrieveThemeMode();
   }, [themeMode]);
 
-  // Logic for system preference theme is not working and might be broken
   useEffect(() => {
     const setSystemTheme = async () => {
       const storedThemeMode = await getItem('themeMode');
@@ -103,11 +101,9 @@ export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
         setItem,
       }}>
       <PaperProvider theme={theme}>
-        <SafeAreaProvider>
-          <NavigationContainer theme={navigationTheme}>
-            {children}
-          </NavigationContainer>
-        </SafeAreaProvider>
+        <NavigationContainer theme={navigationTheme}>
+          {children}
+        </NavigationContainer>
       </PaperProvider>
     </ThemeContext.Provider>
   );

@@ -1,7 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {createContext, useContext, useEffect, useReducer} from 'react';
 import {adaptNavigationTheme, PaperProvider} from 'react-native-paper';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {darkTheme, lightTheme} from '../../styles/colorThemes';
 import {ThemeAction, ThemeInitialState} from '../type';
 import {loadThemeInitialStateValue} from './loadThemeInitialStateValue';
@@ -49,11 +48,9 @@ export const ThemeContextProvider = ({
   return (
     <ThemeContext.Provider value={memoizedUserContextValue}>
       <PaperProvider theme={appTheme}>
-        <SafeAreaProvider>
-          <NavigationContainer theme={navigationTheme}>
-            {children}
-          </NavigationContainer>
-        </SafeAreaProvider>
+        <NavigationContainer theme={navigationTheme}>
+          {children}
+        </NavigationContainer>
       </PaperProvider>
     </ThemeContext.Provider>
   );

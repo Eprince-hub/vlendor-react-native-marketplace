@@ -1,10 +1,10 @@
+import 'react-native-gesture-handler';
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
  *
  * @format
  */
-
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {en, registerTranslation} from 'react-native-paper-dates';

@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
 import {DatePickerModal} from 'react-native-paper-dates';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import TextInputWithIcon from './TextInputWithIcon';
 
 type SingleDatePickerInputProps = {
@@ -34,24 +33,22 @@ export default function SingleDatePickerInput({
 
   const formattedDate = date ? date.toISOString().split('T')[0] : '';
   return (
-    <SafeAreaProvider>
-      <View>
-        <TextInputWithIcon
-          label={title}
-          value={formattedDate}
-          icon={icon}
-          onPress={() => setOpen(true)}
-        />
+    <View>
+      <TextInputWithIcon
+        label={title}
+        value={formattedDate}
+        icon={icon}
+        onPress={() => setOpen(true)}
+      />
 
-        <DatePickerModal
-          locale="en"
-          mode="single"
-          visible={open}
-          onDismiss={onDismissSingle}
-          date={date}
-          onConfirm={onConfirmSingle}
-        />
-      </View>
-    </SafeAreaProvider>
+      <DatePickerModal
+        locale="en"
+        mode="single"
+        visible={open}
+        onDismiss={onDismissSingle}
+        date={date}
+        onConfirm={onConfirmSingle}
+      />
+    </View>
   );
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {getProduct} from '../util/data';
 
@@ -12,19 +12,17 @@ export function ProductDetails({route}: any) {
   }, [productId]);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Image
-          style={styles.image}
-          source={require('../assets/productImages/cleaning.jpg')}
-        />
-        <View style={styles.infoContainer}>
-          <Text style={styles.name}>{product.name}</Text>
-          <Text style={styles.price}>$ {product.price}</Text>
-          <Text style={styles.description}>{product.description}</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView>
+      <Image
+        style={styles.image}
+        source={require('../assets/productImages/cleaning.jpg')}
+      />
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{product.name}</Text>
+        <Text style={styles.price}>$ {product.price}</Text>
+        <Text style={styles.description}>{product.description}</Text>
+      </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
