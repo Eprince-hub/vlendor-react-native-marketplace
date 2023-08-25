@@ -1,11 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
-import ThemeSwitcher from '../components/ThemeSwitcher';
+import {Text} from 'react-native-paper';
 import {useAppContext} from '../util/AppContextProviders';
-import {setUserProfile} from '../util/AppContextProviders/UserContextProvider/userActions';
-import {getItem} from '../util/asyncStorage';
 import isUserLoggedIn from '../util/auth/user';
 
 export default function ProfileScreen({route}: any) {
@@ -13,25 +10,19 @@ export default function ProfileScreen({route}: any) {
   // Temporary variable to hold the name of the user
   const profileParams = route.params?.name || 'Guest';
 
-  const {userState, themeState, userDispatch} = useAppContext();
+  const {userState, themeState} = useAppContext();
 
-  const handleSignOut = async () => {
-    const userInfoFromStorage = await getItem('userProfile');
-    console.log('User Info from storage Now: ', userInfoFromStorage);
-
-    userDispatch(setUserProfile(null));
-  };
-
-  useEffect(() => {
+  const checkUserLoggedIn = useCallback(() => {
     const userLoggedIn = isUserLoggedIn(userState.userProfile?.name);
-    console.log('User is logged in: ', userLoggedIn);
 
     if (!userLoggedIn) {
-      // Navigate to the login screen
-      // This is the code to navigate to the login screen
       navigation.navigate('LoginScreen');
     }
   }, [navigation, userState.userProfile?.name]);
+
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, [checkUserLoggedIn]);
 
   return (
     <View>
@@ -41,12 +32,6 @@ export default function ProfileScreen({route}: any) {
       </Text>
       <Text>This is {profileParams}'s profile</Text>
       <Text>My Current Theme mode is {themeState.themeMode}</Text>
-      <ThemeSwitcher />
-
-      <View>
-        <Text>You can Logout by clicking below</Text>
-        <Button onPress={handleSignOut}>Logout</Button>
-      </View>
     </View>
   );
 }
