@@ -8,6 +8,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {ProductDetails} from '../screens/ProductDetails';
 import SignUpScreen from '../screens/SignupScreen';
 import {useAppContext} from '../util/AppContextProviders';
@@ -19,7 +20,7 @@ export default function MainScreensNavigator() {
   const {themeMode} = themeState;
 
   return (
-    <>
+    <SafeAreaView style={styles.safeAreaViewStyle}>
       <StatusBar
         barStyle={themeMode === 'light' ? 'dark-content' : 'light-content'}
       />
@@ -31,6 +32,7 @@ export default function MainScreensNavigator() {
           name="Products"
           component={BottomNavigationTrigger}
           options={{
+            headerShown: false,
             title: 'Services',
           }}
         />
@@ -38,10 +40,13 @@ export default function MainScreensNavigator() {
 
         <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
-    </>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  safeAreaViewStyle: {
+    flex: 1,
+  },
   headerTitle: {
     fontSize: 20,
   },
