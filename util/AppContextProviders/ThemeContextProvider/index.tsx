@@ -7,8 +7,14 @@ import {loadThemeInitialStateValue} from './loadThemeInitialStateValue';
 import {themeInitialState} from './themeInitialState';
 import {themeReducer} from './themeReducer';
 
+type AppTheme = typeof lightTheme | typeof darkTheme;
+
 const ThemeContext = createContext<
-  | {themeState: ThemeInitialState; themeDispatch: React.Dispatch<ThemeAction>}
+  | {
+      themeState: ThemeInitialState;
+      themeDispatch: React.Dispatch<ThemeAction>;
+      appTheme: AppTheme;
+    }
   | undefined
 >(undefined);
 
@@ -23,8 +29,8 @@ export const ThemeContextProvider = ({
   );
 
   const {LightTheme, DarkTheme} = adaptNavigationTheme({
-    reactNavigationLight: lightTheme as any,
-    reactNavigationDark: darkTheme as any,
+    reactNavigationLight: lightTheme,
+    reactNavigationDark: darkTheme,
   });
 
   const navigationTheme =
@@ -41,8 +47,9 @@ export const ThemeContextProvider = ({
     () => ({
       themeState,
       themeDispatch,
+      appTheme,
     }),
-    [themeState, themeDispatch],
+    [themeState, themeDispatch, appTheme],
   );
 
   return (
