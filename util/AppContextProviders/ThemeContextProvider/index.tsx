@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {createContext, useContext, useEffect, useReducer} from 'react';
 import {adaptNavigationTheme, PaperProvider} from 'react-native-paper';
+import {NavigationTheme} from 'react-native-paper/lib/typescript/types';
 import {darkTheme, lightTheme} from '../../styles/colorThemes';
 import {ThemeAction, ThemeInitialState} from '../type';
 import {loadThemeInitialStateValue} from './loadThemeInitialStateValue';
@@ -29,8 +30,8 @@ export const ThemeContextProvider = ({
   );
 
   const {LightTheme, DarkTheme} = adaptNavigationTheme({
-    reactNavigationLight: lightTheme,
-    reactNavigationDark: darkTheme,
+    reactNavigationLight: lightTheme as unknown as NavigationTheme,
+    reactNavigationDark: darkTheme as unknown as NavigationTheme,
   });
 
   const navigationTheme =
