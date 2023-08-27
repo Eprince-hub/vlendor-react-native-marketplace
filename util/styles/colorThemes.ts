@@ -1,5 +1,4 @@
 import {MD3DarkTheme, MD3LightTheme} from 'react-native-paper';
-import {NavigationTheme} from 'react-native-paper/lib/typescript/types';
 
 const darkColorTheme = {
   colors: {
@@ -102,9 +101,9 @@ const lightColorTheme = {
 export const darkTheme = {
   ...MD3DarkTheme,
   ...darkColorTheme,
-} as unknown as NavigationTheme;
+};
 
 export const lightTheme = {
   ...MD3LightTheme,
   ...lightColorTheme,
-} as unknown as NavigationTheme;
+};
