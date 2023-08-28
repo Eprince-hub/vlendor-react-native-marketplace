@@ -7,6 +7,7 @@ interface PhoneInputProps {
   countryCode: string;
   icon: string;
   phoneNumber: string;
+  mode?: 'flat' | 'outlined';
   onChangePhoneNumber: (phoneNumber: string) => void;
   disabled?: boolean;
 }
@@ -16,6 +17,7 @@ const PhoneNumberInput: React.FC<PhoneInputProps> = ({
   countryCode,
   icon,
   phoneNumber,
+  mode = 'outlined',
   onChangePhoneNumber,
   disabled,
 }) => {
@@ -31,10 +33,12 @@ const PhoneNumberInput: React.FC<PhoneInputProps> = ({
 
   return (
     <View style={styles.phoneInputContainer}>
-      <TextInput style={styles.countryCodeText} disabled>
+      <TextInput style={styles.countryCodeText} disabled mode={mode}>
         {countryCode}
       </TextInput>
       <TextInput
+        activeOutlineColor="blue"
+        mode={mode}
         disabled={disabled}
         label={label}
         value={remainingPhoneNumber}
