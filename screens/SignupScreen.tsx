@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Snackbar, Text} from 'react-native-paper';
-import Dropdown from '../components/Dropdown';
+import CustomDropdown from '../components/Dropdown';
 import PhoneNumberInput from '../components/PhoneNumberInput';
 import SingleDatePickerInput from '../components/SingleDatePickerInput';
 import TextInputWithIcon from '../components/TextInputWithIcon';
@@ -53,6 +53,23 @@ const SignUpScreen: React.FC = () => {
     confirmPassword: '',
   });
 
+  const styles = StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      padding: 16,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 16,
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 16,
+    },
+  });
+
   const navigation = useNavigation<any>();
   const {userDispatch, userState} = useAppContext();
 
@@ -90,9 +107,25 @@ const SignUpScreen: React.FC = () => {
     state => state.state === location.selectedState,
   );
 
-  const countries = countriesStatesAndLocalGovt.map(country => country.country);
-  const states = selectedCountryData?.states.map(state => state.state) || [];
-  const localGovts = selectedStateData?.localGovt || [];
+  const countries = countriesStatesAndLocalGovt.map(country => {
+    return {label: country.country, value: country.country};
+  });
+
+  const states =
+    selectedCountryData?.states.map(state => {
+      return {
+        label: state.state,
+        value: state.state,
+      };
+    }) || [];
+
+  const localGovts =
+    selectedStateData?.localGovt.map(localGovt => {
+      return {
+        label: localGovt,
+        value: localGovt,
+      };
+    }) || [];
 
   const totalPages = 3;
 
@@ -105,6 +138,7 @@ const SignUpScreen: React.FC = () => {
       navigation.navigate('ProfileScreen');
     }
   }, [navigation, userState.userProfile?.name]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {currentPage === 1 && (
@@ -139,49 +173,53 @@ const SignUpScreen: React.FC = () => {
       {currentPage === 2 && (
         <View>
           <Text style={styles.sectionTitle}>Contact Information</Text>
-          <Dropdown
-            label="Country"
+          <CustomDropdown
+            placeholder="Select Country"
             options={countries}
             selectedValue={location.selectedCountry}
-            onSelect={text => setLocation({...location, selectedCountry: text})}
+            setSelectedValue={value =>
+              setLocation({...location, selectedCountry: value})
+            }
           />
-          <Dropdown
+          <CustomDropdown
             disabled={!location.selectedCountry}
-            label="State"
+            placeholder="Select State"
             options={states}
             selectedValue={location.selectedState}
-            onSelect={text => setLocation({...location, selectedState: text})}
+            setSelectedValue={value =>
+              setLocation({...location, selectedState: value})
+            }
           />
-          <Dropdown
+          <CustomDropdown
             disabled={!location.selectedState}
-            label="Locality"
+            placeholder="Select Locality"
             options={localGovts}
             selectedValue={location.selectedLocalGovt}
-            onSelect={text =>
-              setLocation({...location, selectedLocalGovt: text})
+            setSelectedValue={value =>
+              setLocation({...location, selectedLocalGovt: value})
             }
           />
           <PhoneNumberInput
             disabled={!location.selectedCountry}
+            icon="phone"
             label="Phone"
             phoneNumber={location.phoneNumber}
             countryCode={selectedCountryData?.countryPhoneCode || '+234'}
             onChangePhoneNumber={text =>
               setLocation({...location, phoneNumber: text})
             }
-            icon="phone"
           />
           <TextInputWithIcon
+            icon="map-marker"
             label="Address"
             value={location.address}
             onChangeText={text => setLocation({...location, address: text})}
-            icon="map-marker"
           />
           <TextInputWithIcon
+            icon="location-enter"
             label="Zip Code"
             value={location.postalCode}
             onChangeText={text => setLocation({...location, postalCode: text})}
-            icon="location-enter"
           />
         </View>
       )}
@@ -190,37 +228,37 @@ const SignUpScreen: React.FC = () => {
         <View>
           <Text style={styles.sectionTitle}>Profile Information</Text>
           <TextInputWithIcon
+            icon="account"
             label="Username or Display Name"
             value={profileInfo.username}
             onChangeText={text =>
               setProfileInfo({...profileInfo, username: text})
             }
-            icon="account"
           />
           <TextInputWithIcon
+            icon="email"
             label="Email Address"
             value={profileInfo.email}
             onChangeText={text => setProfileInfo({...profileInfo, email: text})}
-            icon="email"
           />
           <TextInputWithIcon
+            icon={isPasswordVisible ? 'eye-off' : 'eye'}
             label="Password"
             secureTextEntry={!isPasswordVisible}
             value={profileInfo.password}
             onChangeText={text =>
               setProfileInfo({...profileInfo, password: text})
             }
-            icon={isPasswordVisible ? 'eye-off' : 'eye'}
             onPress={() => setPasswordVisible(!isPasswordVisible)}
           />
           <TextInputWithIcon
+            icon="eye-off"
             label="Confirm Password"
             secureTextEntry={true}
             value={profileInfo.confirmPassword}
             onChangeText={text =>
               setProfileInfo({...profileInfo, confirmPassword: text})
             }
-            icon="eye-off"
           />
         </View>
       )}
@@ -261,22 +299,5 @@ const SignUpScreen: React.FC = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 16,
-  },
-});
 
 export default SignUpScreen;
