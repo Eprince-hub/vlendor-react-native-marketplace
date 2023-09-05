@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Text} from 'react-native-paper';
 import {removeItem} from '../util/asyncStorage';
 
 export default function ResetScreen({navigation}: any) {
@@ -14,14 +9,12 @@ export default function ResetScreen({navigation}: any) {
     navigation.push('Onboarding');
   };
   return (
-    <SafeAreaView>
-      <View>
-        <Text>We can reset the local storage for now from here</Text>
-        <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
-          <Text>Reset</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View>
+      <Text>We can reset the local storage for now from here</Text>
+      <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
+        <Text>Reset</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 

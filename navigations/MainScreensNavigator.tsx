@@ -7,33 +7,46 @@
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {ProductDetails} from '../screens/ProductDetails';
+import SignUpScreen from '../screens/SignupScreen';
+import {useAppContext} from '../util/AppContextProviders';
 import BottomNavigationTrigger from './BottomNavigation';
 
 const Stack = createNativeStackNavigator();
 export default function MainScreensNavigator() {
+  const {themeState} = useAppContext();
+  const {themeMode} = themeState;
+
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Products"
-        component={BottomNavigationTrigger}
-        options={{
-          title: 'Services',
-          headerTitleStyle: styles.headerTitle,
-        }}
+    <SafeAreaView style={styles.safeAreaViewStyle}>
+      <StatusBar
+        barStyle={themeMode === 'light' ? 'dark-content' : 'light-content'}
       />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetails}
-        options={{
+      <Stack.Navigator
+        screenOptions={{
           headerTitleStyle: styles.headerTitle,
-        }}
-      />
-    </Stack.Navigator>
+        }}>
+        <Stack.Screen
+          name="Products"
+          component={BottomNavigationTrigger}
+          options={{
+            headerShown: false,
+            title: 'Services',
+          }}
+        />
+        <Stack.Screen name="ProductDetails" component={ProductDetails} />
+
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  safeAreaViewStyle: {
+    flex: 1,
+  },
   headerTitle: {
     fontSize: 20,
   },

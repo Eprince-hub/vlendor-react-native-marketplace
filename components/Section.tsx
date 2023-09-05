@@ -1,5 +1,6 @@
 import React, {PropsWithChildren} from 'react';
-import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {StyleSheet, useColorScheme, View} from 'react-native';
+import {Text} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{

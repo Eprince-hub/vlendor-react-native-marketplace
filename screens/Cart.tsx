@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
 
 export function Cart() {
   return (
@@ -23,21 +24,15 @@ const styles = StyleSheet.create({
   lineLeft: {
     fontSize: 20,
     lineHeight: 40,
-    color: '#333333',
   },
   lineRight: {
     flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
     lineHeight: 40,
-    color: '#333333',
     textAlign: 'right',
   },
-  itemsList: {
-    backgroundColor: '#eeeeee',
-  },
   itemsListContainer: {
-    backgroundColor: '#eeeeee',
     paddingVertical: 8,
     marginHorizontal: 8,
   },

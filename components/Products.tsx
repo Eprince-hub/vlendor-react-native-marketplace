@@ -1,5 +1,4 @@
 import React from 'react';
-// import {Button, Image, Text, View} from 'react-native';
 import {
   StyleProp,
   View as NativeView,
@@ -7,8 +6,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import {Avatar, Button, Card, Text} from 'react-native-paper';
-import {IconSource} from 'react-native-paper/lib/typescript/src/components/Icon';
-import {ThemeProp} from 'react-native-paper/lib/typescript/src/types';
+import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
+import {ThemeProp} from 'react-native-paper/lib/typescript/types';
 
 const LeftContent = (
   props: React.JSX.IntrinsicAttributes &

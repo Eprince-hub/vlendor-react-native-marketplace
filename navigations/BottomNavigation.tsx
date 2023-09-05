@@ -1,20 +1,24 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FixIcon from 'react-native-vector-icons/MaterialIcons';
+import {renderExploreIcon} from '../components/icons/ExploreIcon';
+import {renderHomeIcon} from '../components/icons/HomeIcon';
+import {renderProfileIcon} from '../components/icons/ProfileIcon';
+import {renderResetIcon} from '../components/icons/ResetIcon';
 import {Cart} from '../screens/Cart';
+import LoginScreen from '../screens/LoginScreen';
 import {ProductsList} from '../screens/ProductsList';
-import ProfileScreen from '../screens/ProfileScreen';
 import ResetScreen from '../screens/ResetScreen';
+import {useAppContext} from '../util/AppContextProviders';
+import isUserLoggedIn from '../util/auth/user';
+import {DrawerNavigator} from './DrawerNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function BottomNavigationTrigger() {
+  const {userState} = useAppContext();
+  const userLoggedIn = isUserLoggedIn(userState.userProfile?.name);
   return (
-    <Tab.Navigator
-      activeColor="blue"
-      inactiveColor="black"
-      initialRouteName="HomeScreen_tab">
+    <Tab.Navigator activeColor="blue" initialRouteName="HomeScreen_tab">
       <Tab.Screen
         name="HomeScreen_tab"
         component={ProductsList}
@@ -40,8 +44,8 @@ function BottomNavigationTrigger() {
         }}
       />
       <Tab.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}
+        name="Drawer"
+        component={userLoggedIn ? DrawerNavigator : LoginScreen}
         options={{
           tabBarLabel: 'Me',
           tabBarIcon: renderProfileIcon,
@@ -51,24 +55,3 @@ function BottomNavigationTrigger() {
   );
 }
 export default BottomNavigationTrigger;
-
-// TODO: Move this to a separate component common file
-// And make the component reusable
-type IconColorProps = {
-  color: string;
-};
-
-const renderExploreIcon = ({color}: IconColorProps) => {
-  return <FixIcon name="explore" size={26} color={color} />;
-};
-
-const renderHomeIcon = ({color}: IconColorProps) => {
-  return <Icon name="home" size={26} color={color} />;
-};
-const renderResetIcon = ({color}: IconColorProps) => {
-  return <Icon name="bell" size={26} color={color} />;
-};
-
-const renderProfileIcon = ({color}: IconColorProps) => {
-  return <Icon name="account" size={26} color={color} />;
-};
