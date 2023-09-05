@@ -1,5 +1,26 @@
 import React from 'react';
-import {Button, Image, Text, View} from 'react-native';
+// import {Button, Image, Text, View} from 'react-native';
+import {
+  StyleProp,
+  View as NativeView,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
+import {Avatar, Button, Card, Text} from 'react-native-paper';
+import {IconSource} from 'react-native-paper/lib/typescript/src/components/Icon';
+import {ThemeProp} from 'react-native-paper/lib/typescript/src/types';
+
+const LeftContent = (
+  props: React.JSX.IntrinsicAttributes &
+    ViewProps &
+    React.RefAttributes<NativeView> & {
+      icon: IconSource;
+      size?: number | undefined;
+      color?: string | undefined;
+      style?: StyleProp<ViewStyle>;
+      theme?: ThemeProp | undefined;
+    },
+) => <Avatar.Icon {...props} icon="folder" />;
 
 export type Product = {
   id: number;
@@ -7,6 +28,7 @@ export type Product = {
   image: string;
   price: number;
   description: string;
+  onPress?: () => void;
 };
 
 export default function Products({
@@ -17,22 +39,31 @@ export default function Products({
   navigation: any;
 }) {
   return (
-    <View>
+    <NativeView>
       {products.map(product => {
         return (
-          <View key={product.id}>
-            <Text>{product.name}</Text>
-            <Image source={{uri: product.image}} />
-            <Text>{product.price}</Text>
-            <Button
-              title="View Product"
-              onPress={() =>
-                navigation.navigate('SingleProduct', {productId: product.id})
-              }
+          <Card key={product.id}>
+            <Card.Title
+              title="Card Title"
+              subtitle="Card Subtitle"
+              left={LeftContent as any}
             />
-          </View>
+            <Card.Content>
+              <Text>{product.name}</Text>
+            </Card.Content>
+            <Card.Cover source={require(product.image)} />
+            <Text>{product.price}</Text>
+            <Card.Actions>
+              <Button
+                onPress={() =>
+                  navigation.navigate('SingleProduct', {productId: product.id})
+                }>
+                <Text>View Product</Text>
+              </Button>
+            </Card.Actions>
+          </Card>
         );
       })}
-    </View>
+    </NativeView>
   );
 }

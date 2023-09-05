@@ -1,4 +1,4 @@
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Lottie from 'lottie-react-native';
 import React from 'react';
 import {
@@ -13,11 +13,11 @@ import {setItem} from '../util/asyncStorage';
 
 const {width} = Dimensions.get('window');
 
-export default function OnboardingScreen({navigation}: any) {
-  // const navigation = useNavigation();
+export default function OnboardingScreen() {
+  const navigation = useNavigation<any>();
 
   const handleDone = () => {
-    navigation.navigate('DefaultHomePage');
+    navigation.navigate('MainScreens');
     setItem('onboarded', '1');
   };
 
@@ -35,7 +35,7 @@ export default function OnboardingScreen({navigation}: any) {
         onSkip={handleDone}
         // bottomBarHighlight={false}
         DoneButtonComponent={doneButton}
-        containerStyles={{paddingHorizontal: 15}}
+        containerStyles={styles.containerStyle}
         pages={[
           {
             backgroundColor: '#3486f0',
@@ -95,12 +95,15 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: width * 0.9,
-    height: width,
+    height: width / 2,
   },
   doneButton: {
     padding: 20,
     // backgroundColor: 'white',
     // borderTopLeftRadius: '100%',
     // borderBottomLeftRadius: '100%'
+  },
+  containerStyle: {
+    paddingHorizontal: 15,
   },
 });
