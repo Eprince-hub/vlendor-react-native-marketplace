@@ -491,9 +491,9 @@ PODS:
     - React-jsi (= 0.72.3)
     - React-logger (= 0.72.3)
     - React-perflogger (= 0.72.3)
-  - RNCAsyncStorage (1.19.3):
+  - RNCAsyncStorage (1.19.1):
     - React-Core
-  - RNScreens (3.24.0):
+  - RNScreens (3.22.1):
     - React-Core
     - React-RCTImage
   - SocketRocket (0.6.1)
@@ -733,8 +733,8 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 837c1bebd2f84572db17698cd702ceaf585b0d9a
   React-utils: bcb57da67eec2711f8b353f6e3d33bd8e4b2efa3
   ReactCommon: 3ccb8fb14e6b3277e38c73b0ff5e4a1b8db017a9
-  RNCAsyncStorage: c913ede1fa163a71cea118ed4670bbaaa4b511bb
-  RNScreens: b21dc57dfa2b710c30ec600786a3fc223b1b92e7
+  RNCAsyncStorage: f47fe18526970a69c34b548883e1aeceb115e3e1
+  RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 8796b55dba14d7004f980b54bcc9833ee45b28ce
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
