@@ -1,5 +1,3 @@
-import {MD3DarkTheme, MD3LightTheme} from 'react-native-paper';
-
 const darkColorTheme = {
   colors: {
     primary: 'rgb(187, 195, 255)',
@@ -99,11 +97,9 @@ const lightColorTheme = {
 };
 
 export const darkTheme = {
-  ...MD3DarkTheme,
   ...darkColorTheme,
 };
 
 export const lightTheme = {
-  ...MD3LightTheme,
   ...lightColorTheme,
 };
